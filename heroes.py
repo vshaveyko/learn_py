@@ -40,15 +40,10 @@ def calc_game_weight(game):
 def main():
     #Intialize a spark context
     with pyspark.SparkContext("local", "PySparkHeroesChances") as sc:
-        #Get a RDD containing lines from this script file
         games = sc.parallelize(data)
-        #Split each line into words and assign a frequency of 1 to each word
         weights = games.map(calc_game_weight)
-        #count the frequency for words
         counts = weights.reduceByKey(operator.add)
 
-        #Sort the counts in descending order based on the word frequency
-        #Get an iterator over the counts to print a word and its frequency
         result = {}
 
         for word,count in counts.toLocalIterator():
