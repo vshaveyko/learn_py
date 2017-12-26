@@ -8,15 +8,15 @@ def random_team():
 
 data = []
 
-for i in range(0, 1000000):
+for i in range(0, 1000):
     teams = random_team()
     won   = set(teams[:5])
     lose  = set(teams[5:])
 
     data.append({ 'won': won, 'lose': lose })
 
-team1 = set([1,2,3])
-team2 = set([6,7])
+team1 = set([1, 2, 3])
+team2 = set([6, 7, 21])
 
 def calc_game_weight(game):
     #  print('gameeee', game)
@@ -35,7 +35,7 @@ def calc_game_weight(game):
     elif team1won_len < team2won_len:
         return ('Team1', team2won_len)
     else:
-        return ('Even', 1)
+        return ('Even', team2won_len)
 
 def main():
     #Intialize a spark context
