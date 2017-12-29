@@ -1,0 +1,29 @@
+<% if @current_stats %>
+  <%= @current_stats.includes(:hero).map { |stat| [stat.hero.name, stat.num_win, stat.num_loss] } %>
+<% else %>
+  <p>Not enough data learned for this matchup</p>
+<% end %>
+
+<div>
+  <%= form_tag('/check_stat', method: :get, style: 'display: inline-flex;') do -%>
+
+    <%= label_tag :ally_heroes, '', style: 'display: inline-block, margin-left: 100px;' do -%>
+
+      <p>Select your team pick</p>
+
+      <%= select_tag :ally_heroes, options_from_collection_for_select(@heroes, 'id', 'name'), style: 'height: -webkit-fill-available;', multiple: true %>
+
+    <% end %>
+
+    <%= label_tag :enemy_heroes, '', style: 'display: inline-block; margin-left: 300px;' do -%>
+
+      <p>Select enemy team pick</p>
+
+      <%= select_tag :enemy_heroes, options_from_collection_for_select(@heroes, 'id', 'name'), style: 'height: -webkit-fill-available;', multiple: true %>
+
+    <% end %>
+
+    <%= submit_tag("Check stat") %>
+
+  <% end -%>
+</div>
